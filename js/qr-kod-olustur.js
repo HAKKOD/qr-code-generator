@@ -50,12 +50,20 @@ async function karekodOlustur(id, kareKodDonusturulecekVeri) {
     await new QRCode(document.getElementById(id), kareKodDonusturulecekVeri);
     document.getElementById(id).childNodes[0].style = 'display: block;margin-left: auto;margin-right: auto;';
     document.getElementById(id).childNodes[1].style = 'display: block;margin-left: auto;margin-right: auto;';
-    document.getElementById(id).childNodes[1].classList.add('img-fluid');
-    document.getElementById(id).childNodes[1].classList.add('p-5');
-    document.getElementById(id).childNodes[1].classList.add('bg-white');
-    document.getElementById(id).childNodes[1].classList.add('shadow-sm');
-    document.getElementById(id).childNodes[1].width = "3000";
-    document.getElementById(id).childNodes[1].height = "3000";
+    if (window.screen.width > 992) {
+        document.getElementById(id).childNodes[1].classList.add('img-fluid');
+        document.getElementById(id).childNodes[1].classList.add('p-5');
+        document.getElementById(id).childNodes[1].classList.add('bg-white');
+        document.getElementById(id).childNodes[1].classList.add('shadow-sm');
+        document.getElementById(id).childNodes[1].width = "3000";
+        document.getElementById(id).childNodes[1].height = "3000";
+    } else {
+        document.getElementById(id).childNodes[0].classList.add('img-fluid');
+        document.getElementById(id).childNodes[0].classList.add('p-5');
+        document.getElementById(id).childNodes[0].classList.add('bg-white');
+        document.getElementById(id).childNodes[0].classList.add('shadow-sm');
+    }
+
     document.getElementById("yazdirilacak-karekod").childNodes[1].style = 'display: block;margin-left: auto;margin-right: auto;';
     document.getElementById("yazdirilacak-karekod").childNodes[1].width = "500";
     document.getElementById("yazdirilacak-karekod").childNodes[1].height = "500";
@@ -145,6 +153,6 @@ function karekoduYazdir() {
     document.getElementById("yazdirilacak-sayfa").hidden = true;
 }
 
-document.getElementById("karekodu-yazdirma-butonu").onclick = function() {
+document.getElementById("karekodu-yazdirma-butonu").onclick = function () {
     karekoduYazdir();
 }
