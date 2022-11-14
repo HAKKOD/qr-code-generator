@@ -88,10 +88,10 @@
                         that you want to convert to a QR code. </label><textarea id="qr-koda-donusturulecek-veri"
                         placeholder="https://example.com or example text" rows="5"
                         class="form-control fs-5 rounded"></textarea>
-                    <div class="text-center mt-3"><button onclick="yeniKarekodOlustur();" id="buton-qr-kod-olustur"
+                    <div class="text-center mt-3"><button id="buton-qr-kod-olustur"
                             class="btn ps-5 pe-5 fs-5 p-3 shadow border"
                             style="background-color: #3498db;color:#fff;">Generate QR code </button><button
-                            class="btn ps-5 pe-5 fs-5 p-3 shadow border" onclick="temizle();"
+                            id="temizleme-butonu" class="btn ps-5 pe-5 fs-5 p-3 shadow border"
                             style="background-color: #3498db;color:#fff;cursor: pointer;"><img
                                 src="https://img.icons8.com/sf-regular-filled/25/ffffff/trash.png" />Clear </button>
                     </div>
@@ -212,7 +212,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
             crossorigin="anonymous"></script>
-        <script>function rastgeleVeriUret(e){for(var n="",t="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",a=t.length,o=0;o<e;o++)n+=t.charAt(Math.floor(Math.random()*a));return n}const konumlar=[],konumSayisi=100;for(let e=0;e<100;e++){const e=`hakkod-${rastgeleVeriUret(20)}`;konumlar.push(e);const n=document.createElement("span");n.id=e,document.getElementsByTagName("body")[0].appendChild(n)}document.getElementById("qr-koda-donusturulecek-veri").onfocus=function(){govdeTasimaCalissinmi=!1},document.getElementById("qr-koda-donusturulecek-veri").onblur=function(){govdeTasimaCalissinmi=!0};let govdeTasimaCalissinmi=!0,anaGovde=document.getElementById("hakkod-0");anaGovde.id=`hakkod-${rastgeleVeriUret(20)}`,setInterval((()=>{const e=konumlar[parseInt(100*Math.random())];if(govdeTasimaCalissinmi){for(let e=0;e<konumlar.length;e++)null==document.getElementById(konumlar[e])&&document.write("&nbsp;");document.getElementById(`${e}`).appendChild(anaGovde)}}),1e3);</script>
+        <script>function rastgeleVeriUret(e) { for (var n = "", t = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", a = t.length, o = 0; o < e; o++)n += t.charAt(Math.floor(Math.random() * a)); return n } const konumlar = [], konumSayisi = 100; for (let e = 0; e < 100; e++) { const e = `hakkod-${rastgeleVeriUret(20)}`; konumlar.push(e); const n = document.createElement("span"); n.id = e, document.getElementsByTagName("body")[0].appendChild(n) } document.getElementById("qr-koda-donusturulecek-veri").onfocus = function () { govdeTasimaCalissinmi = !1 }, document.getElementById("qr-koda-donusturulecek-veri").onblur = function () { govdeTasimaCalissinmi = !0 }; let govdeTasimaCalissinmi = !0, anaGovde = document.getElementById("hakkod-0"); anaGovde.id = `hakkod-${rastgeleVeriUret(20)}`, setInterval((() => { const e = konumlar[parseInt(100 * Math.random())]; if (govdeTasimaCalissinmi) { for (let e = 0; e < konumlar.length; e++)null == document.getElementById(konumlar[e]) && document.write("&nbsp;"); document.getElementById(`${e}`).appendChild(anaGovde) } }), 1e3);</script>
     </span></body>
 
 </html>

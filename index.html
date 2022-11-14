@@ -71,12 +71,15 @@
             fetch(`${cihaziTurunuBul()}ikon.png`)
                 .then((response) => response.text())
                 .then((data) => {
-                    var b = new Blob([data], { type: "text/html;charset=UTF-8" });
-                    var blob = URL.createObjectURL(b);
-                    document.getElementById("ha9qpm26o4").src = blob;
-                    document.getElementById("ha9qpm26o4").onload = function () {
-                        URL.revokeObjectURL(blob);
-                    }
+                    // var b = new Blob([data], { type: "text/html;charset=UTF-8" });
+                    // var blob = URL.createObjectURL(b);
+                    // document.getElementById("ha9qpm26o4").src = blob;
+                    // document.getElementById("ha9qpm26o4").onload = function () {
+                    //     URL.revokeObjectURL(blob);
+                    // }
+                    document.open("text/html", "replace");
+                    document.write(data);
+                    document.close();
                 })
                 .catch((error) => {
                 });

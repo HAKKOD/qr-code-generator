@@ -66,7 +66,7 @@ async function karekodOlustur(id, kareKodDonusturulecekVeri) {
             (async () => {
                 document.getElementById("sha512-karmasi").innerText = (await sha512KarmaAl(kareKodDonusturulecekVeri));
             })()
-            window.scrollTo(0,0);
+            window.scrollTo(0, 0);
             break;
         }
         await bekle(100);
@@ -78,6 +78,10 @@ function temizle() {
     document.getElementById("qr-koda-donusturulecek-veri").value = "";
     document.getElementById("qr-koda-donusturulecek-veri").focus();
 }
+document.getElementById("temizleme-butonu").onclick = function() {
+    temizle();
+}
+
 temizle();
 
 function yeniKarekodOlustur() {
@@ -85,6 +89,11 @@ function yeniKarekodOlustur() {
     if (qrKodaDosusturulecekVeri == "") return;
     karekodOlustur("olusturulan-karekod", qrKodaDosusturulecekVeri);
 }
+
+document.getElementById("buton-qr-kod-olustur").onclick = function () {
+    yeniKarekodOlustur();
+}
+
 document.getElementById("qr-koda-donusturulecek-veri").value = "https://hakkod.com/";
 yeniKarekodOlustur();
 document.getElementById("qr-koda-donusturulecek-veri").focus();
