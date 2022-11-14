@@ -45,32 +45,35 @@ function indir(url) {
 async function karekodOlustur(id, kareKodDonusturulecekVeri) {
     document.getElementById(id).innerHTML = "";
     await new QRCode(document.getElementById(id), kareKodDonusturulecekVeri);
-    document.getElementById(id).childNodes[0].style = 'display: block;margin-left: auto;margin-right: auto;';
-    document.getElementById(id).childNodes[1].style = 'display: block;margin-left: auto;margin-right: auto;';
-    document.getElementById(id).childNodes[1].classList.add('img-fluid');
-    document.getElementById(id).childNodes[1].classList.add('p-5');
-    document.getElementById(id).childNodes[1].classList.add('bg-white');
-    document.getElementById(id).childNodes[1].classList.add('shadow-sm');
-    document.getElementById(id).childNodes[1].width = "3000";
-    document.getElementById(id).childNodes[1].height = "3000";
-    while (true) {
-        const qrKodSrc = document.getElementById("olusturulan-karekod").lastChild.src;
-        if (qrKodSrc != "") {
-            const qrKodBase64 = qrKodSrc.split("data:image/png;base64,")[1];
-            const blob = b64toBlob(qrKodBase64, "image/png");
-            const blobUrl = URL.createObjectURL(blob);
-            document.getElementById("qr-kodu-yeni-sekmede-acan-link").href = blobUrl;
-            document.getElementById("qr-kodu-indiren-buton").href = blobUrl;
-            document.getElementById("olusturulan-karekodu-base64-formatinda-indir").href = `data:text/plain;charset=UTF-8,${qrKodBase64}`;
-            document.getElementById("olusturulan-karekod-bolumu").hidden = false;
-            (async () => {
-                document.getElementById("sha512-karmasi").innerText = (await sha512KarmaAl(kareKodDonusturulecekVeri));
-            })()
-            window.scrollTo(0, 0);
-            break;
-        }
-        await bekle(100);
+    if (window.screen.width < 992) {
+        document.getElementById(id).childNodes[0].style = 'display: block;margin-left: auto;margin-right: auto;';
+        document.getElementById(id).childNodes[1].style = 'display: block;margin-left: auto;margin-right: auto;';
+        document.getElementById(id).childNodes[0].classList.add('img-fluid');
+        document.getElementById(id).childNodes[0].classList.add('p-5');
+        document.getElementById(id).childNodes[0].classList.add('bg-white');
+        document.getElementById(id).childNodes[0].classList.add('shadow-sm');
+    } else if (window.screen.width > 992) {
+        document.getElementById(id).childNodes[0].style = 'display: block;margin-left: auto;margin-right: auto;';
+        document.getElementById(id).childNodes[1].style = 'display: block;margin-left: auto;margin-right: auto;';
+        document.getElementById(id).childNodes[1].classList.add('img-fluid');
+        document.getElementById(id).childNodes[1].classList.add('p-5');
+        document.getElementById(id).childNodes[1].classList.add('bg-white');
+        document.getElementById(id).childNodes[1].classList.add('shadow-sm');
+        document.getElementById(id).childNodes[1].width = "3000";
+        document.getElementById(id).childNodes[1].height = "3000";
     }
+
+    const qrKodBase64 = document.getElementById(id).childNodes[0].toDataURL("image/png").split(';base64,')[1]
+    const blob = b64toBlob(qrKodBase64, "image/png");
+    const blobUrl = URL.createObjectURL(blob);
+    document.getElementById("qr-kodu-yeni-sekmede-acan-link").href = `data:image/png;base64,${qrKodBase64}`;
+    document.getElementById("qr-kodu-indiren-buton").href = blobUrl;
+    document.getElementById("olusturulan-karekodu-base64-formatinda-indir").href = `data:text/plain;charset=UTF-8,${qrKodBase64}`;
+    document.getElementById("olusturulan-karekod-bolumu").hidden = false;
+    (async () => {
+        document.getElementById("sha512-karmasi").innerText = (await sha512KarmaAl(kareKodDonusturulecekVeri));
+    })()
+    window.scrollTo(0, 0);
 }
 
 
@@ -78,7 +81,7 @@ function temizle() {
     document.getElementById("qr-koda-donusturulecek-veri").value = "";
     document.getElementById("qr-koda-donusturulecek-veri").focus();
 }
-document.getElementById("temizleme-butonu").onclick = function() {
+document.getElementById("temizleme-butonu").onclick = function () {
     temizle();
 }
 
@@ -99,11 +102,11 @@ yeniKarekodOlustur();
 document.getElementById("qr-koda-donusturulecek-veri").focus();
 
 (async () => {
-    const hostname = (await sha512KarmaAl(window.location.hostname));
-    if (hostname != "cd1839476f44a1b93c5d442b671a99bbdd55dcd829c319a479460a5c58925f3cf7d4fa080c65b92de4375687b9616f78e28b431deb820bda2e3c76805fabe264" &&
-        hostname != "619a382dd62fc1b0ddbde261e88270e20b3837a5e0c848a2dc8769b69bca029d35f7c9526ec345ae1d9dc6968c8d28bb921ac493ef90299ae3d2693f8ea20142") {
+    const origin = (await sha512KarmaAl(window.location.origin));
+    if (origin != "cd1839476f44a1b93c5d442b671a99bbdd55dcd829c319a479460a5c58925f3cf7d4fa080c65b92de4375687b9616f78e28b431deb820bda2e3c76805fabe264" &&
+        origin != "619a382dd62fc1b0ddbde261e88270e20b3837a5e0c848a2dc8769b69bca029d35f7c9526ec345ae1d9dc6968c8d28bb921ac493ef90299ae3d2693f8ea20142") {
         // eval(atob("d2luZG93LmxvY2F0aW9uLnJlcGxhY2UoImh0dHBzOi8vaGFra29kLmNvbS90ZWxpZi1oYWtsYXJpLWlobGFsaS10ZXNwaXRpLyIp"));
-        console.log(hostname)
+        console.log(window.location.origin)
     }
 })()
 
