@@ -1,3 +1,4 @@
+let qrKodBase64 = '';
 const b64toBlob = (b64Data, contentType = '', sliceSize = 512) => {
     const byteCharacters = atob(b64Data);
     const byteArrays = [];
@@ -44,36 +45,47 @@ function indir(url) {
 
 async function karekodOlustur(id, kareKodDonusturulecekVeri) {
     document.getElementById(id).innerHTML = "";
+    document.getElementById("yazdirilacak-karekod").innerHTML = "";
+    await new QRCode(document.getElementById("yazdirilacak-karekod"), kareKodDonusturulecekVeri);
     await new QRCode(document.getElementById(id), kareKodDonusturulecekVeri);
-    if (window.screen.width < 992) {
-        document.getElementById(id).childNodes[0].style = 'display: block;margin-left: auto;margin-right: auto;';
-        document.getElementById(id).childNodes[1].style = 'display: block;margin-left: auto;margin-right: auto;';
-        document.getElementById(id).childNodes[0].classList.add('img-fluid');
-        document.getElementById(id).childNodes[0].classList.add('p-5');
-        document.getElementById(id).childNodes[0].classList.add('bg-white');
-        document.getElementById(id).childNodes[0].classList.add('shadow-sm');
-    } else if (window.screen.width > 992) {
-        document.getElementById(id).childNodes[0].style = 'display: block;margin-left: auto;margin-right: auto;';
-        document.getElementById(id).childNodes[1].style = 'display: block;margin-left: auto;margin-right: auto;';
-        document.getElementById(id).childNodes[1].classList.add('img-fluid');
-        document.getElementById(id).childNodes[1].classList.add('p-5');
-        document.getElementById(id).childNodes[1].classList.add('bg-white');
-        document.getElementById(id).childNodes[1].classList.add('shadow-sm');
-        document.getElementById(id).childNodes[1].width = "3000";
-        document.getElementById(id).childNodes[1].height = "3000";
+    document.getElementById(id).childNodes[0].style = 'display: block;margin-left: auto;margin-right: auto;';
+    document.getElementById(id).childNodes[1].style = 'display: block;margin-left: auto;margin-right: auto;';
+    document.getElementById(id).childNodes[1].classList.add('img-fluid');
+    document.getElementById(id).childNodes[1].classList.add('p-5');
+    document.getElementById(id).childNodes[1].classList.add('bg-white');
+    document.getElementById(id).childNodes[1].classList.add('shadow-sm');
+    document.getElementById(id).childNodes[1].width = "3000";
+    document.getElementById(id).childNodes[1].height = "3000";
+    document.getElementById("yazdirilacak-karekod").childNodes[1].style = 'display: block;margin-left: auto;margin-right: auto;';
+    document.getElementById("yazdirilacak-karekod").childNodes[1].width = "500";
+    document.getElementById("yazdirilacak-karekod").childNodes[1].height = "500";
+    while (true) {
+        qrKodBase64 = document.getElementById(id).childNodes[0].toDataURL("image/png").split(';base64,')[1]
+        if (qrKodBase64 != "") {
+            const blob = b64toBlob(qrKodBase64, "image/png");
+            const blobUrl = URL.createObjectURL(blob);
+            document.getElementById("qr-kodu-yeni-sekmede-acan-link").href = `data:image/png;base64,${qrKodBase64}`;
+            document.getElementById("qr-kodu-indiren-buton").href = blobUrl;
+            document.getElementById("olusturulan-karekodu-base64-formatinda-indir").href = `data:text/plain;charset=UTF-8,${qrKodBase64}`;
+            document.getElementById("olusturulan-karekod-bolumu").hidden = false;
+            (async () => {
+                document.getElementById("sha512-karmasi").innerText = (await sha512KarmaAl(kareKodDonusturulecekVeri));
+                const uretilenSHA512 = (await sha512KarmaAl(kareKodDonusturulecekVeri));
+                let yazdirilacakSHA512 = "";
+                for (let x1 = 0; x1 < 128; x1++) {
+                    if (x1 % 32 == 0) {
+                        yazdirilacakSHA512 += "<br>";
+                    } else {
+                        yazdirilacakSHA512 += uretilenSHA512[x1];
+                    }
+                }
+                document.getElementById("yazdirilacak-sha512-degeri").innerHTML = yazdirilacakSHA512;
+            })()
+            window.scrollTo(0, 0);
+            break;
+        }
+        await bekle(100);
     }
-
-    const qrKodBase64 = document.getElementById(id).childNodes[0].toDataURL("image/png").split(';base64,')[1]
-    const blob = b64toBlob(qrKodBase64, "image/png");
-    const blobUrl = URL.createObjectURL(blob);
-    document.getElementById("qr-kodu-yeni-sekmede-acan-link").href = `data:image/png;base64,${qrKodBase64}`;
-    document.getElementById("qr-kodu-indiren-buton").href = blobUrl;
-    document.getElementById("olusturulan-karekodu-base64-formatinda-indir").href = `data:text/plain;charset=UTF-8,${qrKodBase64}`;
-    document.getElementById("olusturulan-karekod-bolumu").hidden = false;
-    (async () => {
-        document.getElementById("sha512-karmasi").innerText = (await sha512KarmaAl(kareKodDonusturulecekVeri));
-    })()
-    window.scrollTo(0, 0);
 }
 
 
@@ -110,5 +122,29 @@ document.getElementById("qr-koda-donusturulecek-veri").focus();
     }
 })()
 
+document.getElementById("kare-kodun-url-adresini-kopyala").onclick = async function () {
+    navigator.clipboard.writeText(`data:image/png;base64,${qrKodBase64}`);
+    document.getElementById("kare-kodun-url-adresini-kopyala").classList.add("bg-success");
+    setTimeout(() => {
+        document.getElementById("kare-kodun-url-adresini-kopyala").classList.remove("bg-success");
+    }, 1500);
+}
 
 
+document.getElementById("sha512-karma-degerini-kopyala").onclick = function () {
+    navigator.clipboard.writeText(document.getElementById('sha512-karmasi').innerText);
+    document.getElementById("sha512-karma-degerini-kopyala").classList.add("bg-success");
+    setTimeout(() => {
+        document.getElementById("sha512-karma-degerini-kopyala").classList.remove("bg-success");
+    }, 1500);
+}
+
+function karekoduYazdir() {
+    document.getElementById("yazdirilacak-sayfa").hidden = false;
+    window.print();
+    document.getElementById("yazdirilacak-sayfa").hidden = true;
+}
+
+document.getElementById("karekodu-yazdirma-butonu").onclick = function() {
+    karekoduYazdir();
+}
