@@ -1,1 +1,259 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>QR Code Generator - HAKKOD</title><meta name="description" content="Create your QR code very quickly and very easily."><meta name="author" content="Talha YILDIZ and Said Nuri YILDIZ"><script>document.addEventListener("contextmenu", function (e){ e.preventDefault();}, false); document.addEventListener("keydown", function (e){ if (e.ctrlKey && e.shiftKey && e.keyCode==73){ disabledEvent(e);} if (e.ctrlKey && e.shiftKey && e.keyCode==74){ disabledEvent(e);} if (e.keyCode==83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)){ disabledEvent(e);} if (e.ctrlKey && e.keyCode==85){ disabledEvent(e);} if (event.keyCode==123){ disabledEvent(e);}}, false); function disabledEvent(e){ if (e.stopPropagation){ e.stopPropagation();} else if (window.event){ window.event.cancelBubble=true;} e.preventDefault(); return false;} document.addEventListener('contextmenu', event=>event.preventDefault());</script><style>*:not(textarea){ -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;} .yazdirma-ekraninda-gozuksun{ display: none;} @media print{ .yazdirma-ekraninda-gozuksunmesin{ display: none;} .yazdirma-ekraninda-gozuksun{ display: block;}} </style><link rel="shortcut icon" type="image/x-icon" href="favicon.ico" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous"></head><body id="pc" class="lead text-light" style="background-color: #3498db;"><div id="yazdirilacak-sayfa" class="yazdirma-ekraninda-gozuksun" hidden><div id="yazdirilacak-karekod"></div><p id="yazdirilacak-sha512-degeri" class="text-break text-center fs-4"></p><div class="text-center"><span class="fs-1 fw-bold">HAKKOD</span><br><span>https://hakkod.com/</span></div></div><span id="hakkod-0" class="yazdirma-ekraninda-gozuksunmesin"><script>document.write(`<script src="${window.location.origin}/js/url-kontrolu-min.js"><\/script>`);</script><style>#sayfa-yukenirken-gosterilen-sayfa{ position: fixed; top: 0; width: 100%; height: 200%; z-index: 99999; background-color: #3498db; color: #fff;} </style><section id="sayfa-yukenirken-gosterilen-sayfa"><div class="vh-100 d-flex justify-content-center align-items-center"><div class="col-12 text-center"><script>document.write(`<img style="width:200px;height:200px;" src="${window.location.origin}/ikon.png">`);</script><br><span class="fs-4"><span class="fw-bold">HAKKOD</span>&nbsp;- QR Code Generator</span></div></div></section><script>window.onload=function (e){ setTimeout(()=>{ document.getElementById('sayfa-yukenirken-gosterilen-sayfa').remove();}, 500);}</script><div class="container fs-4 mt-3 mb-3"><div class="bg-white pt-5 pb-5 text-dark rounded text-center shadow"><a href="https://hakkod.com/" target="_blank" class="fw-bold text-dark text-decoration-none">HAKKOD</a>&nbsp;- QR Code Generator </div><div class="bg-white text-dark rounded mt-3 shadow"><section id="olusturulan-karekod-bolumu" class="row mb-4 bg-secondary bg-opacity-10 p-5" hidden><div class="col-4" id="olusturulan-karekod"></div><div class="col-8"><div class="row row-cols-1 row-cols-md-2 g-2"><div class="col"><a id="qr-kodu-yeni-sekmede-acan-link" href="" target="_blank" class="btn bg-gradient ps-5 pe-5 fw-bold fs-5 col-12 pt-3 pb-3 border" style="background-color: #3498db;color:#fff;"><img src="https://img.icons8.com/fluency-systems-regular/25/ffffff/copy.png" />&nbsp;Open it in the new tab </a></div><div class="col"><button id="kare-kodun-url-adresini-kopyala" class="btn bg-gradient ps-5 pe-5 fw-bold fs-5 col-12 pt-3 pb-3 border h-100" style="background-color: #3498db;color:#fff;"><img src="https://img.icons8.com/fluency-systems-regular/25/ffffff/copy.png" />&nbsp;Copy URL Address</button></div><div class="col"><a id="qr-kodu-indiren-buton" href="" download="QR Code.png" class="btn bg-gradient ps-5 pe-5 fw-bold fs-5 col-12 mt-1 pt-3 pb-3 border" style="background-color: #3498db;color:#fff;"><img src="https://img.icons8.com/fluency-systems-regular/25/ffffff/downloading-updates.png" />&nbsp;Download </a></div><div class="col"><a id="olusturulan-karekodu-base64-formatinda-indir" href="" download="QR Code Base64.txt" class="btn bg-gradient ps-5 pe-5 fs-5 col-12 mt-1 fw-bold pt-3 pb-3 border" style="background-color: #3498db;color:#fff;"><img src="https://img.icons8.com/fluency-systems-regular/25/ffffff/downloading-updates.png" />&nbsp;Base64 Download</a></div><div class="col"><button id="karekodu-yazdirma-butonu" class="btn bg-gradient ps-5 pe-5 fs-5 col-12 mt-1 fw-bold pt-3 pb-3 border" style="background-color: #3498db;color:#fff;"><img src="https://img.icons8.com/fluency-systems-regular/25/ffffff/print.png" />&nbsp;Print QR Code</button></div></div><div class="accordion accordion-flush" id="sha512-akordeon"><div class="accordion-item border mt-3 fs-5"><h2 class="accordion-header" id="flush-headingOne"><button class="accordion-button collapsed fs-5 " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">SHA512 Hash (Advanced) </button></h2><div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#sha512-akordeon"><div class="accordion-body"><p class="fw-bold" style="color:#3498db;">It is used to detect whether the QR code has been changed.</p><div><span class="fw-bold">SHA512</span><br><span id="sha512-karmasi" class="text-break"></span></div><button id="sha512-karma-degerini-kopyala" class="btn bg-gradient ps-5 pe-5 fw-bold fs-6 border h-100" style="background-color: #3498db;color:#fff;"><img src="https://img.icons8.com/fluency-systems-regular/25/ffffff/copy.png" />&nbsp;Copy SHA512 Hash</button></div></div></div></div></div></section><div class="p-5">QR Code Generator <label for="url" class="form-label">Enter the text or URL address that you want to convert to a QR code. </label><textarea id="qr-koda-donusturulecek-veri" placeholder="https://example.com or example text" rows="5" class="form-control fs-5 rounded shadow-sm"></textarea><div class="text-center mt-3"><button id="buton-qr-kod-olustur" class="btn ps-5 pe-5 fs-5 p-3 shadow border bg-gradient" style="background-color: #3498db;color:#fff;">Generate QR code </button><button id="temizleme-butonu" class="btn ps-5 pe-5 fs-5 p-3 shadow border bg-gradient" style="background-color: #3498db;color:#fff;cursor: pointer;"><img src="https://img.icons8.com/sf-regular-filled/25/ffffff/trash.png" />Clear </button></div></div><section><div class="bg-secondary bg-opacity-10 p-5"><table><tr><td><img src="https://img.icons8.com/arcade/100/null/lightning-bolt.png" /></td><td><p class="fs-3">Very Speed</p></td></tr></table><p>You can create a qr code very quickly. Usually your barcode will be ready within 1 ms.</p></div><div class="p-5"><table><tr><td><img src="https://img.icons8.com/arcade/100/null/shield.png" /></td><td><p class="fs-3">Very Safe</p></td></tr></table><p>No one can see the QR codes you have created except you. Our application uses SSL certificate. Our application does not store any of your personal information and does not share your data with third parties. </p></div><div class="bg-secondary bg-opacity-10 p-5"><table><tr><td><img src="https://img.icons8.com/arcade/100/null/prize.png" /></td><td><p class="fs-3">Very Easy</p></td></tr></table><p>It is very easy to create a QR code. All you have to do is paste your URL and click the button. That's all, your QR code is ready. </p></div><div class="p-5"><table><tr><td><img src="https://img.icons8.com/arcade/100/null/crown.png" /></td><td><p class="fs-3">Very Strong</p></td></tr></table><p>There are no restrictions on the length of your URL address. It successfully overcomes long urls. </p></div><div class="bg-secondary bg-opacity-10 p-5"><table><tr><td><img src="https://img.icons8.com/arcade/100/null/star.png" /></td><td><p class="fs-3">No Limitation</p></td></tr></table><p>You can create as many QR codes as you want. There is not any limitation. </p></div><div class="p-5"><table><tr><td><img src="https://img.icons8.com/arcade/100/null/coins--v1.png" /></td><td><p class="fs-3">Totally Free</p></td></tr></table><p>We do not have any services that are sold for money. You can use our application in a completely free way. </p></div><div class="bg-secondary bg-opacity-10 p-5"><table><tr><td><img src="https://img.icons8.com/arcade/100/null/idea.png" /></td><td><p class="fs-3">Recommendations</p></td></tr></table><p>We care about your ideas and suggestions. If you would like to share your ideas and suggestions with us, please send us an email. <a href="mailto:contact@hakkod.com" class="text-dark">contact@hakkod.com</a></p></div><div class="p-5"><table><tr><td><script>document.write(`<img style="width:150px;height:150px;" src="${window.location.origin}/ikon.png">`);</script></td><td>&nbsp;</td><td><span class="fs-3"><a href="https://hakkod.com/" target="_blank" class="fw-bold text-decoration-none text-dark">HAKKOD</a><span>&nbsp;-&nbsp;QR Code Generator</span></span><p>It is coded by <strong translate="no" class="lead fw-bold">Talha YILDIZ</strong>&nbsp;and <strong translate="no" class="lead fw-bold">Said Nuri YILDIZ</strong></p><a target="_blank" href="https://icons8.com/">The icons are taken from icons8.</a></td></tr></table></div><hr></section><div class="p-5"><div class="text-center">&copy; All Rights Reserved - <a href="https://hakkod.com/" target="_blank" class="text-primary">https://hakkod.com</a></div></div></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script><script>document.write(`<script src="${window.location.origin}/js/qr-kod-olustur-min.js"><\/script>`);</script><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script><script>function rastgeleVeriUret(e){ for (var n="", t="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", a=t.length, o=0; o < e; o++)n +=t.charAt(Math.floor(Math.random() * a)); return n} const konumlar=[], konumSayisi=100; for (let e=0; e < 100; e++){ const e=`hakkod-${rastgeleVeriUret(20)}`; konumlar.push(e); const n=document.createElement("span"); n.id=e, document.getElementsByTagName("body")[0].appendChild(n)} document.getElementById("qr-koda-donusturulecek-veri").onfocus=function (){ govdeTasimaCalissinmi=!1}, document.getElementById("qr-koda-donusturulecek-veri").onblur=function (){ govdeTasimaCalissinmi=!0}; let govdeTasimaCalissinmi=!0, anaGovde=document.getElementById("hakkod-0"); anaGovde.id=`hakkod-${rastgeleVeriUret(20)}`, setInterval((()=>{ const e=konumlar[parseInt(100 * Math.random())]; if (govdeTasimaCalissinmi){ for (let e=0; e < konumlar.length; e++)null==document.getElementById(konumlar[e]) && document.write("&nbsp;"); document.getElementById(`${e}`).appendChild(anaGovde)}}), 1e3);</script></span></body></html>
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HAKKOD - QR Code Generator</title>
+    <meta name="description" content="Create your QR code very quickly and very easily.">
+    <meta name="author" content="Talha YILDIZ and Said Nuri YILDIZ">
+    <script>document.addEventListener("contextmenu", function (e) { e.preventDefault(); }, false); document.addEventListener("keydown", function (e) { if (e.ctrlKey && e.shiftKey && e.keyCode == 73) { disabledEvent(e); } if (e.ctrlKey && e.shiftKey && e.keyCode == 74) { disabledEvent(e); } if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) { disabledEvent(e); } if (e.ctrlKey && e.keyCode == 85) { disabledEvent(e); } if (event.keyCode == 123) { disabledEvent(e); } }, false); function disabledEvent(e) { if (e.stopPropagation) { e.stopPropagation(); } else if (window.event) { window.event.cancelBubble = true; } e.preventDefault(); return false; } document.addEventListener('contextmenu', event => event.preventDefault());</script>
+    <style>
+        *:not(textarea) {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .yazdirma-ekraninda-gozuksun {
+            display: none;
+        }
+
+        @media print {
+            .yazdirma-ekraninda-gozuksunmesin {
+                display: none;
+            }
+
+            .yazdirma-ekraninda-gozuksun {
+                display: block;
+            }
+        }
+    </style>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+</head>
+
+<body id="pc" class="lead text-light" style="background-color: #3498db;">
+    <div id="yazdirilacak-sayfa" class="yazdirma-ekraninda-gozuksun" hidden>
+        <div id="yazdirilacak-karekod"></div>
+        <p id="yazdirilacak-sha512-degeri" class="text-break text-center fs-4"></p>
+        <div class="text-center"><span class="fs-1 fw-bold">HAKKOD</span><br><span>https://hakkod.com/</span></div>
+    </div><span id="hakkod-0" class="yazdirma-ekraninda-gozuksunmesin">
+        <script>document.write(`<script src="${window.location.origin}/js/url-kontrolu-min.js"><\/script>`);</script>
+        <style>
+            #sayfa-yukenirken-gosterilen-sayfa {
+                position: fixed;
+                top: 0;
+                width: 100%;
+                height: 200%;
+                z-index: 99999;
+                background-color: #3498db;
+                color: #fff;
+            }
+        </style>
+        <section id="sayfa-yukenirken-gosterilen-sayfa">
+            <div class="vh-100 d-flex justify-content-center align-items-center">
+                <div class="col-12 text-center">
+                    <script>document.write(`<img style="width:200px;height:200px;" src="${window.location.origin}/ikon.png">`);</script>
+                    <br><span class="fs-4"><span class="fw-bold">HAKKOD</span>&nbsp;- QR Code Generator</span>
+                </div>
+            </div>
+        </section>
+        <script>window.onload = function (e) { setTimeout(() => { document.getElementById('sayfa-yukenirken-gosterilen-sayfa').remove(); }, 500); }</script>
+        <div class="container fs-4 mt-3 mb-3">
+            <div class="bg-white pt-5 pb-5 text-dark rounded text-center shadow"><a href="https://hakkod.com/"
+                    target="_blank" class="fw-bold text-dark text-decoration-none">HAKKOD</a>&nbsp;- QR Code Generator
+            </div>
+            <div class="bg-white text-dark rounded mt-3 shadow">
+                <section id="olusturulan-karekod-bolumu" class="row mb-4 bg-secondary bg-opacity-10 p-5" hidden>
+                    <div class="col-4" id="olusturulan-karekod"></div>
+                    <div class="col-8">
+                        <div class="row row-cols-1 row-cols-md-2 g-2">
+                            <div class="col"><a id="qr-kodu-yeni-sekmede-acan-link" href="" target="_blank"
+                                    class="btn bg-gradient ps-5 pe-5 fw-bold fs-5 col-12 pt-3 pb-3 border"
+                                    style="background-color: #3498db;color:#fff;"><img
+                                        src="https://img.icons8.com/fluency-systems-regular/25/ffffff/copy.png" />&nbsp;Open
+                                    it in the new tab </a></div>
+                            <div class="col"><button id="kare-kodun-url-adresini-kopyala"
+                                    class="btn bg-gradient ps-5 pe-5 fw-bold fs-5 col-12 pt-3 pb-3 border h-100"
+                                    style="background-color: #3498db;color:#fff;"><img
+                                        src="https://img.icons8.com/fluency-systems-regular/25/ffffff/copy.png" />&nbsp;Copy
+                                    URL Address</button></div>
+                            <div class="col"><a id="qr-kodu-indiren-buton" href="" download="QR Code.png"
+                                    class="btn bg-gradient ps-5 pe-5 fw-bold fs-5 col-12 mt-1 pt-3 pb-3 border"
+                                    style="background-color: #3498db;color:#fff;"><img
+                                        src="https://img.icons8.com/fluency-systems-regular/25/ffffff/downloading-updates.png" />&nbsp;Download
+                                </a></div>
+                            <div class="col"><a id="olusturulan-karekodu-base64-formatinda-indir" href=""
+                                    download="QR Code Base64.txt"
+                                    class="btn bg-gradient ps-5 pe-5 fs-5 col-12 mt-1 fw-bold pt-3 pb-3 border"
+                                    style="background-color: #3498db;color:#fff;"><img
+                                        src="https://img.icons8.com/fluency-systems-regular/25/ffffff/downloading-updates.png" />&nbsp;Base64
+                                    Download</a></div>
+                            <div class="col"><button id="karekodu-yazdirma-butonu"
+                                    class="btn bg-gradient ps-5 pe-5 fs-5 col-12 mt-1 fw-bold pt-3 pb-3 border"
+                                    style="background-color: #3498db;color:#fff;"><img
+                                        src="https://img.icons8.com/fluency-systems-regular/25/ffffff/print.png" />&nbsp;Print
+                                    QR Code</button></div>
+                        </div>
+                        <div class="accordion accordion-flush" id="sha512-akordeon">
+                            <div class="accordion-item border mt-3 fs-5">
+                                <h2 class="accordion-header" id="flush-headingOne"><button
+                                        class="accordion-button collapsed fs-5 " type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#flush-collapseOne" aria-expanded="false"
+                                        aria-controls="flush-collapseOne">SHA512 Hash (Advanced) </button></h2>
+                                <div id="flush-collapseOne" class="accordion-collapse collapse"
+                                    aria-labelledby="flush-headingOne" data-bs-parent="#sha512-akordeon">
+                                    <div class="accordion-body">
+                                        <p class="fw-bold" style="color:#3498db;">It is used to detect whether the QR
+                                            code has been changed.</p>
+                                        <div><span class="fw-bold">SHA512</span><br><span id="sha512-karmasi"
+                                                class="text-break"></span></div><button
+                                            id="sha512-karma-degerini-kopyala"
+                                            class="btn bg-gradient ps-5 pe-5 fw-bold fs-6 border h-100"
+                                            style="background-color: #3498db;color:#fff;"><img
+                                                src="https://img.icons8.com/fluency-systems-regular/25/ffffff/copy.png" />&nbsp;Copy
+                                            SHA512 Hash</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="p-5">QR Code Generator <label for="url" class="form-label">Enter the text or URL address
+                        that you want to convert to a QR code. </label><textarea id="qr-koda-donusturulecek-veri"
+                        placeholder="https://example.com or example text" rows="5"
+                        class="form-control fs-5 rounded shadow-sm"></textarea>
+                    <div class="text-center mt-3"><button id="buton-qr-kod-olustur"
+                            class="btn ps-5 pe-5 fs-5 p-3 shadow border bg-gradient"
+                            style="background-color: #3498db;color:#fff;">Generate QR code </button><button
+                            id="temizleme-butonu" class="btn ps-5 pe-5 fs-5 p-3 shadow border bg-gradient"
+                            style="background-color: #3498db;color:#fff;cursor: pointer;"><img
+                                src="https://img.icons8.com/sf-regular-filled/25/ffffff/trash.png" />Clear </button>
+                    </div>
+                </div>
+                <section>
+                    <div class="bg-secondary bg-opacity-10 p-5">
+                        <table>
+                            <tr>
+                                <td><img src="https://img.icons8.com/arcade/100/null/lightning-bolt.png" /></td>
+                                <td>
+                                    <p class="fs-3">Very Speed</p>
+                                </td>
+                            </tr>
+                        </table>
+                        <p>You can create a qr code very quickly. Usually your barcode will be ready within 1 ms.</p>
+                    </div>
+                    <div class="p-5">
+                        <table>
+                            <tr>
+                                <td><img src="https://img.icons8.com/arcade/100/null/shield.png" /></td>
+                                <td>
+                                    <p class="fs-3">Very Safe</p>
+                                </td>
+                            </tr>
+                        </table>
+                        <p>No one can see the QR codes you have created except you. Our application uses SSL
+                            certificate. Our application does not store any of your personal information and does not
+                            share your data with third parties. </p>
+                    </div>
+                    <div class="bg-secondary bg-opacity-10 p-5">
+                        <table>
+                            <tr>
+                                <td><img src="https://img.icons8.com/arcade/100/null/prize.png" /></td>
+                                <td>
+                                    <p class="fs-3">Very Easy</p>
+                                </td>
+                            </tr>
+                        </table>
+                        <p>It is very easy to create a QR code. All you have to do is paste your URL and click the
+                            button. That's all, your QR code is ready. </p>
+                    </div>
+                    <div class="p-5">
+                        <table>
+                            <tr>
+                                <td><img src="https://img.icons8.com/arcade/100/null/crown.png" /></td>
+                                <td>
+                                    <p class="fs-3">Very Strong</p>
+                                </td>
+                            </tr>
+                        </table>
+                        <p>There are no restrictions on the length of your URL address. It successfully overcomes long
+                            urls. </p>
+                    </div>
+                    <div class="bg-secondary bg-opacity-10 p-5">
+                        <table>
+                            <tr>
+                                <td><img src="https://img.icons8.com/arcade/100/null/star.png" /></td>
+                                <td>
+                                    <p class="fs-3">No Limitation</p>
+                                </td>
+                            </tr>
+                        </table>
+                        <p>You can create as many QR codes as you want. There is not any limitation. </p>
+                    </div>
+                    <div class="p-5">
+                        <table>
+                            <tr>
+                                <td><img src="https://img.icons8.com/arcade/100/null/coins--v1.png" /></td>
+                                <td>
+                                    <p class="fs-3">Totally Free</p>
+                                </td>
+                            </tr>
+                        </table>
+                        <p>We do not have any services that are sold for money. You can use our application in a
+                            completely free way. </p>
+                    </div>
+                    <div class="bg-secondary bg-opacity-10 p-5">
+                        <table>
+                            <tr>
+                                <td><img src="https://img.icons8.com/arcade/100/null/idea.png" /></td>
+                                <td>
+                                    <p class="fs-3">Recommendations</p>
+                                </td>
+                            </tr>
+                        </table>
+                        <p>We care about your ideas and suggestions. If you would like to share your ideas and
+                            suggestions with us, please send us an email. <a href="mailto:contact@hakkod.com"
+                                class="text-dark">contact@hakkod.com</a></p>
+                    </div>
+                    <div class="p-5">
+                        <table>
+                            <tr>
+                                <td>
+                                    <script>document.write(`<img style="width:150px;height:150px;" src="${window.location.origin}/ikon.png">`);</script>
+                                </td>
+                                <td>&nbsp;</td>
+                                <td><span class="fs-3"><a href="https://hakkod.com/" target="_blank"
+                                            class="fw-bold text-decoration-none text-dark">HAKKOD</a><span>&nbsp;-&nbsp;QR
+                                            Code Generator</span></span>
+                                    <p>It is coded by <strong translate="no" class="lead fw-bold">Talha
+                                            YILDIZ</strong>&nbsp;and <strong translate="no" class="lead fw-bold">Said
+                                            Nuri YILDIZ</strong></p><a target="_blank" href="https://icons8.com/">The
+                                        icons are taken from icons8.</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <hr>
+                </section>
+                <div class="p-5">
+                    <div class="text-center">&copy; All Rights Reserved - <a href="https://hakkod.com/" target="_blank"
+                            class="text-primary">https://hakkod.com</a></div>
+                </div>
+            </div>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+        <script>document.write(`<script src="${window.location.origin}/js/qr-kod-olustur-min.js"><\/script>`);</script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+            crossorigin="anonymous"></script>
+        <script>function rastgeleVeriUret(e) { for (var n = "", t = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", a = t.length, o = 0; o < e; o++)n += t.charAt(Math.floor(Math.random() * a)); return n } const konumlar = [], konumSayisi = 100; for (let e = 0; e < 100; e++) { const e = `hakkod-${rastgeleVeriUret(20)}`; konumlar.push(e); const n = document.createElement("span"); n.id = e, document.getElementsByTagName("body")[0].appendChild(n) } document.getElementById("qr-koda-donusturulecek-veri").onfocus = function () { govdeTasimaCalissinmi = !1 }, document.getElementById("qr-koda-donusturulecek-veri").onblur = function () { govdeTasimaCalissinmi = !0 }; let govdeTasimaCalissinmi = !0, anaGovde = document.getElementById("hakkod-0"); anaGovde.id = `hakkod-${rastgeleVeriUret(20)}`, setInterval((() => { const e = konumlar[parseInt(100 * Math.random())]; if (govdeTasimaCalissinmi) { for (let e = 0; e < konumlar.length; e++)null == document.getElementById(konumlar[e]) && document.write("&nbsp;"); document.getElementById(`${e}`).appendChild(anaGovde) } }), 1e3);</script>
+    </span>
+</body>
+
+</html>
